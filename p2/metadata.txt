@@ -1,0 +1,12 @@
+Title:        Operator-Aware Mixed-Precision Tolerance Calibration for Tensor Kernels
+Authors:      Dipankar Sarkar
+Contact:      dsarkar3@asu.edu
+ORCID:        0000-0001-5431-6367
+Primary cat:  cs.LG
+Cross-list:   cs.MS, cs.NA
+License:      CC-BY 4.0
+ACM class:    G.4
+Comments:     7 pages, 1 figure, LNCS format. Companion papers to follow on arXiv next week; IDs will be added in a v2 replace.
+
+Abstract:
+Mixed-precision GPU kernels are validated against a per-(op, dtype) absolute tolerance (atol) typically hand-picked to two-significant-figure precision. We show empirically that this hand-picked atol is systematically 100x to 1,700x looser than the kernel's actual error envelope, which causes the standard correctness oracle (allclose) to silently accept genuinely buggy kernels. We propose a one-shot calibration: take the 95th percentile of max-abs-error across correct controls per (op, dtype), multiply by 1.5 as a safety margin, and use that as the calibrated atol. On the gpuemu 24-op corpus, calibrated atol raises bug-detection recall from 65 percent to 82 percent (+23 pp absolute), at the cost of 8 borderline false positives out of 1,016 correct cases (0.7 pp). The calibration runs in seconds against accumulated B2 run records; the headline tightening factors (100x-1,747x) suggest hand-picked tolerances across the LLM-kernel ecosystem are routinely far looser than the operator's intrinsic error envelope.

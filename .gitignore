@@ -1,0 +1,14 @@
+# LaTeX build artefacts (each subdirectory has its own .gitignore too).
+**/paper.aux
+**/paper.log
+**/paper.out
+**/paper.toc
+**/paper.bbl
+**/paper.blg
+**/arxiv-*.tar.gz
+
+# Editor + OS
+.vscode/
+.idea/
+*.swp
+.DS_Store

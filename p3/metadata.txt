@@ -1,0 +1,12 @@
+Title:        Test-Input Generation for Tensor Programs: What Actually Finds Kernel Bugs
+Authors:      Dipankar Sarkar
+Contact:      dsarkar3@asu.edu
+ORCID:        0000-0001-5431-6367
+Primary cat:  cs.SE
+Cross-list:   cs.LG
+License:      CC-BY 4.0
+ACM class:    D.2.5
+Comments:     7 pages, 1 figure, LNCS format. Companion papers to follow on arXiv next week; IDs will be added in a v2 replace.
+
+Abstract:
+Test-input generation for tensor kernels is folkloric: every project picks a representative shape and dtype, runs torch.allclose, and ships. We make the choices explicit and measure them. Using gpuemu, an op-schema-aware seeded fuzzer for GPU kernels, we evaluate seven test-generation strategies across 26 corpus operators (16 controls plus 10 LLM-style buggy variants, including real Triton matmul, attention, and flash-attention with their classic LLM bugs) on a vast.ai RTX 3060. Strategies vary the boundary-vs-regular shape distribution, the dtype mix, and the input value distribution (uniform, NaN-injected, adversarial: zeros plus subnormals plus large-finite plus non-finite). Adversarial value sampling tops the leaderboard at 99 percent recall (79/80) with zero false positives on correct kernels; NaN-injected sampling is second at 94 percent (75/80); boundary-only shape sampling third at 78 percent (62/80). Most strikingly, the regular strategy (no boundary shapes) catches 0 percent of tail-mask bugs that the boundary strategy catches at 100 percent. This is the empirical case for principled, operator-domain-aware fuzzing as the default test methodology for LLM-generated GPU kernels.

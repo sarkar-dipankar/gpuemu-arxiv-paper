@@ -1,0 +1,12 @@
+Title:        The Correctness Illusion in LLM-Generated GPU Kernels
+Authors:      Dipankar Sarkar
+Contact:      dsarkar3@asu.edu
+ORCID:        0000-0001-5431-6367
+Primary cat:  cs.SE
+Cross-list:   cs.LG, cs.DC
+License:      CC-BY 4.0
+ACM class:    D.2.5
+Comments:     9 pages, 2 figures, LNCS format. Companion papers to follow on arXiv next week; IDs will be added in a v2 replace.
+
+Abstract:
+Benchmarks for LLM-generated GPU kernels (KernelBench, TritonBench-revised, GEAK's ROCm benchmark) declare a kernel correct via a single torch.allclose against one or a handful of fixed input shapes and one dtype. We show this oracle is systematically optimistic. Using gpuemu, an open-source CPU-validatable test harness with op-schema-aware seeded fuzzing, we re-evaluate a corpus of 24 Triton and CPU-stand-in kernels (including 9 LLM-style buggy variants seeded with realistic LLM transcription errors) under boundary-aware shape, dtype, and value-distribution fuzzing. gpuemu flags every one of the 9 buggy variants while every one of the 15 correct controls remains green, recovering bugs the benchmark oracle misses on 100% of buggy kernels at zero false-positive cost. Boundary fuzzing alone improves recall from 80% (default schema) to 93% (boundary-restricted) at no precision cost. All experiments ran end-to-end on a vast.ai RTX 3060 through a reproducible vast.ai + Backblaze B2 pipeline; the corpus, harness, and 17+ run records are public.

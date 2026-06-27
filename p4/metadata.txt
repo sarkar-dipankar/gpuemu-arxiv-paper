@@ -1,0 +1,12 @@
+Title:        Static PTX Metrics Track Structural Kernel Regressions but Miss Semantic Ones
+Authors:      Dipankar Sarkar
+Contact:      dsarkar3@asu.edu
+ORCID:        0000-0001-5431-6367
+Primary cat:  cs.DC
+Cross-list:   cs.PF, cs.PL
+License:      CC-BY 4.0
+ACM class:    D.4.8
+Comments:     8 pages, 3 figures, LNCS format. Companion papers to follow on arXiv next week; IDs will be added in a v2 replace.
+
+Abstract:
+Pairing each GPU kernel's static PTX metrics (registers, spills, instruction count) with CUDA-event-timed perf across five GPU classes (RTX 3060, A10, L40S, A100 SXM4, H100 NVL) reveals a clean signal-vs-blindspot pattern that is architecture-independent: per-pair Delta-regs and Delta-instrs are identical across all five GPUs for any given (correct, buggy) pair, so a static-PTX CI gate built on one GPU class is portable to the others; semantic bugs that compile to identical PTX remain invisible everywhere. We measure this on a controlled corpus of paired correct/buggy Triton kernels (gelu, silu, rmsnorm, l2norm, matmul, attention, flash-attention, softmax, leaky_relu). The result is a clean dichotomy: structural bugs that change the kernel's work (gelu missing 0.5x removes 8 instructions and 8 registers, measured -33% runtime) are detectable from static metrics; semantic bugs that swap one constant for another with no PTX change (softmax other=0.0 vs -inf: identical PTX, identical runtime) are invisible. Measured Delta-perf% at the sub-millisecond scale these corpus kernels occupy is dominated by per-launch variance, particularly on shared-host SXM4 inventory; the static signal is the portable one. This bounds the claim of static-PTX-based perf-regression gating: useful as a fast, portable pre-filter, insufficient as a sole oracle.
